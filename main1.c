@@ -22,7 +22,7 @@ int main() {
 		0xb79bd80c, 0x1d2115b0, 0x0e228aeb, 0xf1780c81,
 		0x428d3654, 0x62293496, 0x01cf72e5, 0x9124a012,
 	};
-	size_t test_sizes[] = { 128, 1024, 1024 * 1024, 5 * 1024 * 1024 };
+	size_t test_sizes[] = { 128, 1024, 1024 * 1024, 10 * 1024 * 1024, 100 * 1024 * 1024 };
 	int num_tests = 10;
 	srand((unsigned int)time(NULL));
 	for (int i = 0; i < sizeof(test_sizes) / sizeof(size_t); i++) {
@@ -52,7 +52,7 @@ int main() {
 		}
 
 		double avg_time1 = total_time1 / num_tests;
-		double avg_time2 = total_time1 / num_tests;
+		double avg_time2 = total_time2 / num_tests;
 		printf("Data size: %zu bytes, Average Time1: %f seconds, Average Time2: %f seconds\n", size, avg_time1, avg_time2);
 	}
 	return 0;
