@@ -171,3 +171,20 @@ void sm4_encrypt(const SM4_KEY* key, const unsigned char in[16], unsigned char o
 	PUTU32(out + 8, X1);
 	PUTU32(out + 12, X0);
 }
+
+
+void sm4_ctr_encrypt(const SM4_KEY *key, uint8_t ctr[16], const uint8_t *in, size_t inlen, uint8_t *out)
+{
+	uint8_t block[16];
+	size_t len;
+
+	while (inlen) {
+		len = inlen < 16 ? inlen : 16;
+		sm4_encrypt(key, ctr, block);
+		gmssl_memxor(out, in, block, len);
+		ctr_incr(ctr);
+		in += len;
+		out += len;
+		inlen -= len;
+	}
+}

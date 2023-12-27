@@ -169,7 +169,7 @@ void gmssl_memxor(void *r, const void *a, const void *b, size_t len)
 	}
 }
 
-void sm4_ctr_encrypt(const SM4_KEY* key, uint8_t ctr[16], const uint8_t* in, size_t inlen, uint8_t* out)
+void sm4_ctr_encrypt2(const uint32_t rk[32], uint8_t ctr[16], const uint8_t* in, size_t inlen, uint8_t* out)
 {
 	uint8_t blocks[64];
 	size_t len, i;
@@ -179,7 +179,7 @@ void sm4_ctr_encrypt(const SM4_KEY* key, uint8_t ctr[16], const uint8_t* in, siz
 		memcpy(blocks + 16, ctr, 16); ctr_incr(ctr);
 		memcpy(blocks + 32, ctr, 16); ctr_incr(ctr);
 		memcpy(blocks + 48, ctr, 16); ctr_incr(ctr);
-		sm4_aesni_avx_encrypt(key->rk, blocks, blocks);
+		sm4_aesni_avx_encrypt(rk, blocks, blocks);
 		gmssl_memxor(out, in, blocks, 64);
 		in += 64;
 		out += 64;

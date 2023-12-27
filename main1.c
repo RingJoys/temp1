@@ -34,19 +34,19 @@ int main() {
 			unsigned char *input = malloc(size);
 			generate_random_data(input, size);
 			uint8_t ctr[16];
-			rand_bytes(ctr, sizeof(ctr));
+			generate_random_data(ctr, 16);
 			unsigned char *output = malloc(size);
 			clock_t start1 = clock();
 			sm4_ctr_encrypt(rk, ctr, input, size, output);
 			clock_t end1 = clock();
-			total_time1 += (double)(end - start) / CLOCKS_PER_SEC;
+			total_time1 += (double)(end1 - start1) / CLOCKS_PER_SEC;
 			free(output);
 
-			unsigned char *output = malloc(size);
+			output = malloc(size);
 			clock_t start2 = clock();
-			sm4_ctr_encrypt(rk, ctr, input, size, output);
+			sm4_ctr_encrypt2(rk, ctr, input, size, output);
 			clock_t end2 = clock();
-			total_time2 += (double)(end - start) / CLOCKS_PER_SEC;
+			total_time2 += (double)(end2 - start2) / CLOCKS_PER_SEC;
 			free(input);
 			free(output);
 		}
