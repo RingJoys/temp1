@@ -172,7 +172,7 @@ void sm4_encrypt(const uint32_t rk[32], const unsigned char in[16], unsigned cha
 	PUTU32(out + 12, X0);
 }
 
-void gmssl_memxor(void *r, const void *a, const void *b, size_t len)
+void gmssl_memxor1(void *r, const void *a, const void *b, size_t len)
 {
 	uint8_t *pr = r;
 	const uint8_t *pa = a;
@@ -183,7 +183,7 @@ void gmssl_memxor(void *r, const void *a, const void *b, size_t len)
 	}
 }
 
-static void ctr_incr(uint8_t a[16])
+static void ctr_incr1(uint8_t a[16])
 {
 	int i;
 	for (i = 15; i >= 0; i--) {
@@ -200,8 +200,8 @@ void sm4_ctr_encrypt(const uint32_t rk[32], uint8_t ctr[16], const uint8_t *in, 
 	while (inlen) {
 		len = inlen < 16 ? inlen : 16;
 		sm4_encrypt(rk, ctr, block);
-		gmssl_memxor(out, in, block, len);
-		ctr_incr(ctr);
+		gmssl_memxor1(out, in, block, len);
+		ctr_incr1(ctr);
 		in += len;
 		out += len;
 		inlen -= len;
