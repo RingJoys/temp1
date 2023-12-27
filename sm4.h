@@ -30,7 +30,7 @@ extern "C" {
 
 	void sm4_set_encrypt_key(SM4_KEY* key, const uint8_t raw_key[SM4_KEY_SIZE]);
 	void sm4_set_decrypt_key(SM4_KEY* key, const uint8_t raw_key[SM4_KEY_SIZE]);
-	void sm4_encrypt(const SM4_KEY* key, const uint8_t in[SM4_BLOCK_SIZE], uint8_t out[SM4_BLOCK_SIZE]);
+	void sm4_encrypt(const uint32_t rk[32], const uint8_t in[SM4_BLOCK_SIZE], uint8_t out[SM4_BLOCK_SIZE]);
 #define sm4_decrypt(key,in,out) sm4_encrypt(key,in,out)
 
 
@@ -44,9 +44,9 @@ extern "C" {
 		const uint8_t* in, size_t inlen, uint8_t* out, size_t* outlen);
 
 
-	void sm4_ctr_encrypt(const SM4_KEY* key, uint8_t ctr[SM4_BLOCK_SIZE],
+	void sm4_ctr_encrypt(const uint32_t rk[32], uint8_t ctr[SM4_BLOCK_SIZE],
 		const uint8_t* in, size_t inlen, uint8_t* out);
-	void sm4_ctr_encrypt2(const SM4_KEY* key, uint8_t ctr[SM4_BLOCK_SIZE],
+	void sm4_ctr_encrypt2(const uint32_t rk[32], uint8_t ctr[SM4_BLOCK_SIZE],
 		const uint8_t* in, size_t inlen, uint8_t* out);
 #define sm4_ctr_decrypt(key,ctr,in,inlen,out) sm4_ctr_encrypt(key,ctr,in,inlen,out)
 

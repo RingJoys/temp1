@@ -144,7 +144,7 @@ void sm4_set_decrypt_key(SM4_KEY* key, const uint8_t user_key[16])
 	}
 }
 
-void sm4_encrypt(const SM4_KEY* key, const unsigned char in[16], unsigned char out[16])
+void sm4_encrypt(const uint32_t rk[32], const unsigned char in[16], unsigned char out[16])
 {
 	uint32_t X0, X1, X2, X3, X4;
 	int i;
@@ -156,7 +156,7 @@ void sm4_encrypt(const SM4_KEY* key, const unsigned char in[16], unsigned char o
 
 	for (i = 0; i < 32; i++) {
 
-		X4 = X1 ^ X2 ^ X3 ^ key->rk[i];
+		X4 = X1 ^ X2 ^ X3 ^ rk[i];
 		X4 = S32(X4);
 		X4 = X0 ^ L32(X4);
 
@@ -173,7 +173,7 @@ void sm4_encrypt(const SM4_KEY* key, const unsigned char in[16], unsigned char o
 }
 
 
-void sm4_ctr_encrypt(const SM4_KEY *key, uint8_t ctr[16], const uint8_t *in, size_t inlen, uint8_t *out)
+void sm4_ctr_encrypt(const uint32_t rk[32], uint8_t ctr[16], const uint8_t *in, size_t inlen, uint8_t *out)
 {
 	uint8_t block[16];
 	size_t len;

@@ -188,7 +188,7 @@ void sm4_ctr_encrypt2(const uint32_t rk[32], uint8_t ctr[16], const uint8_t* in,
 
 	while (inlen) {
 		len = inlen < 16 ? inlen : 16;
-		sm4_encrypt(key, ctr, blocks);
+		sm4_encrypt(rk, ctr, blocks);
 		gmssl_memxor(out, in, blocks, len);
 		ctr_incr(ctr);
 		in += len;
